@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 let UserSchema = new mongoose.Schema(
     {
@@ -8,28 +8,27 @@ let UserSchema = new mongoose.Schema(
         provider_id: String,
         token: String,
         provider_pic: String,
-        followers:[
+        followers: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                refs: 'User'
+                ref: 'User'
             }
         ],
         following: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                refs: 'User'
+                ref: 'User'
             }
         ]
     }
-);
-
+)
 UserSchema.methods.follow = function (user_id) {
     if (this.following.indexOf(user_id) === -1) {
-        this.following.push(user_id)
+        this.following.push(user_id)        
     }
     return this.save()
-};
+}
 UserSchema.methods.addFollower = function (fs) {
-    this.followers.push(fs)
-};
-module.exports = mongoose.model('User', UserSchema);
+    this.followers.push(fs)        
+}
+module.exports = mongoose.model('User', UserSchema)
